@@ -9,7 +9,7 @@ module.exports = function (context) {
   return new Promise(function (resolve, reject) {
     Project.find({}, 'name branches.name').exec(function (err, projects) {
       if (err) return reject(err);
-      Job.find({}, 'project ref.branch test_exitcode deploy_exitcode').exec(function (err, jobs) {
+      Job.find({}, 'project ref.branch test_exitcode deploy_exitcode').sort({finished: -1}).exec(function (err, jobs) {
         if (err) return reject(err);
         _.each(projects, function (project) {
           items.push({
